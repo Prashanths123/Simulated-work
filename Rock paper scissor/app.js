@@ -1,43 +1,22 @@
-const computerChoiceDisplay = document.getElementById('computer-choice')
-const userChoiceDisplay = document.getElementById('user-choice')
-const resultDisplay = document.getElementById('result')
-const possibleChoices = document.querySelectorAll('button')
-let userChoice
-let computerChoice
-let result
+function play(playerChoice) {
+    const choices = ['rock', 'paper', 'scissors'];
+    const computerChoice = choices[Math.floor(Math.random() * choices.length)];
+    
+    // Display the computer's choice
+    document.getElementById('computer-choice').innerText = computerChoice;
 
-possibleChoices.forEach(possibleChoices => possibleChoices.addEventListener('click', (e) => {
-    userChoice = e.target.id
-    userChoiceDisplay.innerHTML = userChoice
-    generateComputerChoice()
-    getResult()
-}))
-
-function generateComputerChoice(){
-    const randomNumber = Math.floor(Math.random() * 3) + 1
-    if(randomNumber === 1){
-        computerChoice = 'rock'
-    }
-    if(randomNumber === 2){
-        computerChoice = 'paper'
-    }
-    if(randomNumber === 3){
-        computerChoice = 'scissors'
-    }
-    computerChoiceDisplay.innerHTML = computerChoice
-}
-
-function getResult(){
-    if (userChoice === computerChoice) {
-        result = 'Its a tie!'
+    let result = '';
+    if (playerChoice === computerChoice) {
+        result = "It's a tie!";
     } else if (
-        (userChoice === 'rock' && computerChoice === 'scissors') ||
-        (userChoice === 'scissors' && computerChoice === 'paper') ||
-        (userChoice === 'paper' && computerChoice === 'rock')
+        (playerChoice === 'rock' && computerChoice === 'scissors') ||
+        (playerChoice === 'paper' && computerChoice === 'rock') ||
+        (playerChoice === 'scissors' && computerChoice === 'paper')
     ) {
-        result = 'You win!'
+        result = `You win! ${playerChoice} beats ${computerChoice}.`;
     } else {
-        result = 'You lose!'
+        result = `You lose! ${computerChoice} beats ${playerChoice}.`;
     }
-    resultDisplay.innerHTML = result
+
+    document.getElementById('result').innerText = result;
 }
